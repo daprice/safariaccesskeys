@@ -51,7 +51,13 @@ function processMessage(event)
 
 function askForKeys()
 {
-	safari.application.activeBrowserWindow.activeTab.page.dispatchMessage('sendKeys','');
+	if( safari.application.activeBrowserWindow.activeTab.url )
+		safari.application.activeBrowserWindow.activeTab.page.dispatchMessage('sendKeys','');
+	else
+	{
+		$('body').empty();
+		processAccessKeys(null, null);
+	}
 }
 
 function userToggleBar(event) //called when the user attempts to toggle the bar using the toolbar button
@@ -151,6 +157,9 @@ safari.application.activeBrowserWindow.addEventListener('message',processMessage
 safari.self.browserWindow.addEventListener("command", userToggleBar, false);
 safari.extension.settings.addEventListener("change", settingChanged, false);
 
+//ask the page for a list of access keys at appropriate times
+safari.self.browserWindow.addEventListener('activate', askForKeys, true);
+safari.self.browserWindow.addEventListener('navigate', askForKeys, true);
+
 processAccessKeys();
 
-updateInterval = setInterval('askForKeys()', 1000);
