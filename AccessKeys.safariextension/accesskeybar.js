@@ -157,6 +157,7 @@ function processAccessKeys(names,keys)	//puts a button in the toolbar for each a
 				var thisText = names[x] + ' (' + keys[x] + ')';
 				$('body').append('<p>'+thisText+'</p>');
 			}
+			$('body').className = $('body').className; //force the toolbar to redraw itself to work around an apparent safari bug where some of the content would be cut off
 		}
 		toggleBar(1,0);
 	}
