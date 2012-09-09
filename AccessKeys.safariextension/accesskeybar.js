@@ -30,9 +30,9 @@ function askForKeys()
 	safari.application.activeBrowserWindow.activeTab.page.dispatchMessage('sendKeys','');
 }
 
-function userToggleBar() //called when the user attempts to toggle the bar using the toolbar button
+function userToggleBar(event) //called when the user attempts to toggle the bar using the toolbar button
 {
-	if(toggleSetting == false) //only listen to the user if automatic toggling is turned off
+	if(event.command == 'toggleBar' && toggleSetting == false) //only listen to the user if automatic toggling is turned off
 	{
 		const bars = safari.extension.bars;
 		const activeBrowserWindow = safari.application.activeBrowserWindow;
