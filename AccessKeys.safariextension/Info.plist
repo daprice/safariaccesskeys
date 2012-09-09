@@ -78,7 +78,7 @@
 		</dict>
 	</dict>
 	<key>Update Manifest URL</key>
-	<string>http://downloads.dalepricewebdesign.com/accesskeys.plist</string>
+	<string>http://downloads.dalepricewebdesign.com/extensions.plist</string>
 	<key>Website</key>
 	<string>http://dalepricewebdesign.com/safariaccesskeys</string>
 </dict>
