@@ -116,6 +116,11 @@ function shortenName(name)
 
 function processAccessKeys(names,keys)	//puts a button in the toolbar for each access key
 {
+	if (!names)
+		barToggleButton.badge = 0;
+	else
+		barToggleButton.badge = names.length;
+	
 	if (!names || names.length == 0)
 	{
 		var thisText = 'No access key shortcuts found';
