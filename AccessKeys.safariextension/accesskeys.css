@@ -1,0 +1,12 @@
+p	{
+	display: inline-block;
+	margin: 0px;
+	padding: 1px 7px 2px;
+}
+p:first-child	{
+	padding-left: 3px;
+}
+
+p::first-letter	{
+	text-transform: capitalize;
+}
