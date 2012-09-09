@@ -13,9 +13,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.2.0</string>
+	<string>1.3.0</string>
 	<key>CFBundleVersion</key>
-	<string>1.2.0</string>
+	<string>1.3.0</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Bars</key>
@@ -27,6 +27,25 @@
 				<string>Access Keys</string>
 				<key>Label</key>
 				<string>Access Keys</string>
+			</dict>
+		</array>
+		<key>Toolbar Items</key>
+		<array>
+			<dict>
+				<key>Command</key>
+				<string>toggleBar</string>
+				<key>Identifier</key>
+				<string>toggleaccesskeys</string>
+				<key>Image</key>
+				<string>toolbar.png</string>
+				<key>Include By Default</key>
+				<false/>
+				<key>Label</key>
+				<string>Toggle Access Keys</string>
+				<key>Palette Label</key>
+				<string>Access Keys</string>
+				<key>Tool Tip</key>
+				<string>Show or hide the Access Keys toolbar</string>
 			</dict>
 		</array>
 	</dict>

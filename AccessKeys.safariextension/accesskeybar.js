@@ -30,6 +30,30 @@ function askForKeys()
 	safari.application.activeBrowserWindow.activeTab.page.dispatchMessage('sendKeys','');
 }
 
+function userToggleBar() //called when the user attempts to toggle the bar using the toolbar button
+{
+	if(toggleSetting == false) //only listen to the user if automatic toggling is turned off
+	{
+		const bars = safari.extension.bars;
+		const activeBrowserWindow = safari.application.activeBrowserWindow;
+		for (var i = 0; i < bars.length; ++i) {
+		    var bar = bars[i];
+		    if (bar.browserWindow === activeBrowserWindow && bar.identifier === "Access Keys")
+		       {
+			       
+			       	if(bar.visible == 1)
+			       	{
+			       		bar.hide();
+			       	}
+			       	else
+			       	{
+			       		bar.show();
+			       	}
+		       }
+		}
+	}
+}
+
 function toggleBar(newVis,override)
 {
 	if(toggleSetting == true || override == true)
@@ -95,6 +119,7 @@ function processAccessKeys(names,keys)	//puts a button in the toolbar for each a
 
 
 safari.application.activeBrowserWindow.addEventListener('message',processMessage,false);
+safari.self.browserWindow.addEventListener("command", userToggleBar, false);
 safari.extension.settings.addEventListener("change", settingChanged, false);
 
 processAccessKeys();
