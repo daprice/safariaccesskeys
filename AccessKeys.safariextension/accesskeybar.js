@@ -1,6 +1,16 @@
 var accessKeyNames,
 	accessKeyKeys,
 	toggleSetting = safari.extension.settings.autotoggle;
+	
+//find toolbar button
+var itemArray = safari.extension.toolbarItems;
+for (var i = 0; i < itemArray.length; ++i) {
+    var item = itemArray[i];
+    if (item.identifier == "toggleaccesskeys")
+       {
+	       var barToggleButton = itemArray[i];
+       }
+}
 
 function settingChanged(event)
 {
@@ -9,6 +19,20 @@ function settingChanged(event)
 		toggleSetting = event.newValue;
 		if (toggleSetting == 0)
 		{	toggleBar(1,1);	}
+		
+		//enable/disable toolbar button
+		if( toggleSetting == 1 )
+		{
+			//barToggleButton.command = null;
+			barToggleButton.disabled = true;
+			barToggleButton.toolTip = 'Automatically hiding and showing the Access Keys toolbar. Change this in the extension\'s preferences.';
+		}
+		else
+		{
+			//barToggleButton.command = 'toggleBar';
+			barToggleButton.disabled = false;
+			barToggleButton.toolTip = 'Show or hide the Access Keys toolbar';
+		}
 	}
 }
 
