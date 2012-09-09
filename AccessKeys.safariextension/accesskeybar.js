@@ -20,19 +20,24 @@ function settingChanged(event)
 		if (toggleSetting == 0)
 		{	toggleBar(1,1);	}
 		
-		//enable/disable toolbar button
-		if( toggleSetting == 1 )
-		{
-			//barToggleButton.command = null;
-			barToggleButton.disabled = true;
-			barToggleButton.toolTip = 'Automatically hiding and showing the Access Keys toolbar. Change this in the extension\'s preferences.';
-		}
-		else
-		{
-			//barToggleButton.command = 'toggleBar';
-			barToggleButton.disabled = false;
-			barToggleButton.toolTip = 'Show or hide the Access Keys toolbar';
-		}
+		validateButton();
+	}
+}
+
+function validateButton()
+{
+	//enable/disable toolbar button
+	if( toggleSetting == 1 )
+	{
+		//barToggleButton.command = null;
+		barToggleButton.disabled = true;
+		barToggleButton.toolTip = 'Automatically hiding and showing the Access Keys toolbar. Change this in the extension\'s preferences.';
+	}
+	else
+	{
+		//barToggleButton.command = 'toggleBar';
+		barToggleButton.disabled = false;
+		barToggleButton.toolTip = 'Show or hide the Access Keys toolbar';
 	}
 }
 
@@ -55,8 +60,7 @@ function askForKeys()
 		safari.application.activeBrowserWindow.activeTab.page.dispatchMessage('sendKeys','');
 	else
 	{
-		$('body').empty();
-		processAccessKeys(null, null);
+		emptyBar();
 	}
 }
 
@@ -120,6 +124,12 @@ function shortenName(name)
 	return name;
 }
 
+function emptyBar() //forces "no access keys found" to be displayed in the bar
+{
+	$('body').empty();
+	processAccessKeys(null, null);
+}
+
 function processAccessKeys(names,keys)	//puts a button in the toolbar for each access key
 {
 	if (!names)
@@ -159,7 +169,9 @@ safari.extension.settings.addEventListener("change", settingChanged, false);
 
 //ask the page for a list of access keys at appropriate times
 safari.self.browserWindow.addEventListener('activate', askForKeys, true);
-safari.self.browserWindow.addEventListener('navigate', askForKeys, true);
+safari.self.browserWindow.addEventListener('navigate', askForKeys, false);
+safari.self.browserWindow.addEventListener('beforeNavigate', emptyBar, false);
 
+validateButton();
 processAccessKeys();
 
